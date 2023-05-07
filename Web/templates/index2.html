@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Image Rotator</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+    /* 定义人物元素的样式 */
+    .sprite {
+      text-align: center;
+      width: 100%;
+      height: 165px;
+      background-image: url('{{ url_for('static', filename='OIP.jpg') }}');
+      animation: run 0.8s steps(8) infinite;
+    }
+
+    /* 定义动画 */
+    @keyframes run {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: -384px 0;
+      }
+    }
+    </style>
+    <script>
+     function showComponent() {
+      // 获取组件元素
+      var component = document.getElementById("donghua");
+      // 显示组件
+      component.style.display = "block";
+     }
+    </script>
+
+  </head>
+
+
+  <body style="background-image: url('{{ url_for('static', filename='background.jpg') }}')">
+    <h1 style="text-align: center;">Check recognition</h1>
+    <form method="POST" enctype="multipart/form-data" style="text-align: center;">
+      <input type="file" name="file" >
+      <br><br>
+      <input type="submit" value="Upload" style="margin-right: 190px;" onclick="showComponent()";>
+    </form>
+
+    <div id="donghua" style="display: none;">
+    <div class="sprite" style="text-align: center;"></div>
+    </div>
+
+
+    {% if image %}
+    <h2>Rotated Image:</h2>
+    <img src="{{ image.url }}" alt="Rotated Image">
+    {% endif %}
+
+  </body>
+
+
+</html>
