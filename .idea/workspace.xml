@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="6fffb602-0603-4e24-857b-ff055eb74d1c" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web/DS_Web.py" beforeDir="false" afterPath="$PROJECT_DIR$/Web/DS_Web.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +72,7 @@
       <workItem from="1683441334561" duration="305000" />
       <workItem from="1683441711625" duration="5084000" />
       <workItem from="1683455070392" duration="464000" />
-      <workItem from="1683461025158" duration="1458000" />
+      <workItem from="1683461025158" duration="3177000" />
     </task>
     <servers />
   </component>
@@ -84,7 +83,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/DSCD$DS_Web.coverage" NAME="DS_Web 覆盖结果" MODIFIED="1683455497082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Web" />
+    <SUITE FILE_PATH="coverage/DSCD$DS_Web.coverage" NAME="DS_Web 覆盖结果" MODIFIED="1683463885088" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Web" />
     <SUITE FILE_PATH="coverage/DS_Web$DS_Web.coverage" NAME="DS_Web 覆盖结果" MODIFIED="1683447211918" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Web" />
   </component>
 </project>

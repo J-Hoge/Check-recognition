@@ -23,3 +23,5 @@ RealSR还不错，但是只支持对1000*1000以下的文件进行超分，先�
 ## 2023/5/7
 
 超分辨率这一块大概没啥问题了，计划重新改一下界面，首先是要把识别到的文字和最终图片一起输出
+
+https://github.com/PaddlePaddle/PaddleOCR/blob/release/2.6/applications/%E5%8F%91%E7%A5%A8%E5%85%B3%E9%94%AE%E4%BF%A1%E6%81%AF%E6%8A%BD%E5%8F%96.md 或许可以参考一下这个
