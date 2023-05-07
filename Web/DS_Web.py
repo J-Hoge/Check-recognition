@@ -41,7 +41,7 @@ def text_detection_SLOW(img):
     # 设置字体
     font_path = 'Fonts/msyhl.ttc'
     # 设置字体大小
-    custom_font = ImageFont.truetype(font_path, size=30)
+    msyhl_font = ImageFont.truetype(font_path, size=30)
 
     # 创建一个半透明图层
     draw = ImageDraw.Draw(image_pil)
@@ -59,10 +59,9 @@ def text_detection_SLOW(img):
         ouline_color = (0, 0, 256)
         outline_width = 3
         fill_color = (50, 50, 50, 128)  # 设置半透明填充颜色，alpha值128
-
+        rectangle_area = [(startX, startY), (endX, endY)]
         # 在半透明图层上绘制矩形
-        draw_overlay.rectangle([(startX, startY), (endX, endY)], outline=ouline_color, width=outline_width,
-                               fill=fill_color)
+        draw_overlay.rectangle(rectangle_area, outline=ouline_color, width=outline_width, fill=fill_color)
 
     # 将半透明图层与原始图像合并
     image_pil = Image.alpha_composite(image_pil.convert('RGBA'), overlay)
@@ -76,10 +75,11 @@ def text_detection_SLOW(img):
         box = line[0]
         startX = int(box[0][0])
         startY = int(box[0][1])
+        startXY = (startX, startY)
 
         txts = line[1][0]
 
-        draw.text((startX, startY), str(txts), font=custom_font, fill=(0, 255, 0))
+        draw.text(startXY, str(txts), font=msyhl_font, fill=(0, 255, 0))
 
     image = cv2.cvtColor(np.array(image_pil), cv2.COLOR_RGB2BGR)
 
@@ -87,21 +87,18 @@ def text_detection_SLOW(img):
 
 
 def upscale_RealSR(image):
-    # 对图像进行超分辨率
-    # 检查图像尺寸，如果小于 3000，则进行超分辨率处理
+    # 对图像进行超分辨率 - 检查图像尺寸，如果小于 3000，则进行超分辨率处理
     width, height = image.size
     max_side = max(width, height)
     if max_side < 3000:
         # 进行超分辨率处理
-        # 然后将图像转化为ndarray
         from ppgan.apps import RealSRPredictor
         sr = RealSRPredictor()
         image = sr.run(image)
         # 将PIL图像转换为numpy.ndarray
         image_np = np.array(image[0])
     else:
-        # 直接处理
-        # 将PIL图像转换为ndarray
+        # 直接处理 - 将PIL图像转换为ndarray
         image_np = np.array(image)
 
     return image_np
