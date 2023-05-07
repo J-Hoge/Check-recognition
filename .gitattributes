@@ -1,3 +1,5 @@
 Models/* filter=lfs diff=lfs merge=lfs -text
 Web/Models/* filter=lfs diff=lfs merge=lfs -text
 Web/Models/*.pdparams filter=lfs diff=lfs merge=lfs -text
+*.pdparams filter=lfs diff=lfs merge=lfs -text
+*.pdiparams filter=lfs diff=lfs merge=lfs -text
