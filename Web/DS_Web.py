@@ -27,10 +27,11 @@ def text_detection_SLOW(img):
     image = img
 
     result = ocr.ocr(image, cls=True)
-    for idx in range(len(result)):
-        res = result[idx]
-        for line in res:
-            print(line)
+    with open('./out', 'w', encoding='utf-8') as f:
+        for idx in range(len(result)):
+            res = result[idx]
+            for line in res:
+                f.write(line[1][0] + '\n')
 
     # 获取结果
     result = result[0]
@@ -122,15 +123,19 @@ def index():
         # 将处理后的numpy.ndarray图像转换回PIL图像
         im2_pil = Image.fromarray(im2)
 
-        # 将图像文件内容存储到内存缓冲区中
-        output_buffer = io.BytesIO()
-        im2_pil.save(output_buffer, format='JPEG')
-        output_buffer.seek(0)
+        
+         # 将图像文件内容存储到内存缓冲区中
+        buffer = io.BytesIO()
+        im2_pil.save(buffer, format='JPEG')
+        encoded_string = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
+        with open('out.txt', 'r', encoding='utf-8') as f:
+            content = f.read()
         # 返回图像文件内容
-        return send_file(output_buffer, mimetype='image/jpeg')
+        return render_template('result.html', image_data=encoded_string, result=content)
     else:
-        return render_template('index2.html')
+        return render_template('index.html')
+
 
 
 if __name__ == '__main__':
