@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Display Image</title>
+</head>
+<body>
+	<div style="text-align: center;">
+		<img src="data:image/jpg;base64,{{ image_data }}" alt="Image" />
+		<br>
+		<a href="{{ prev_page }}">返回识别页面</a>
+	</div>
+
+	<div style="text-align: center;">
+    	<pre>{{ result }}</pre>
+	</div>
+
+</body>
+</html>
