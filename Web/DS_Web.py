@@ -27,7 +27,7 @@ def text_detection_SLOW(img):
     image = img
 
     result = ocr.ocr(image, cls=True)
-    with open('./out', 'w', encoding='utf-8') as f:
+    with open('./out.txt', 'w', encoding='utf-8') as f:
         for idx in range(len(result)):
             res = result[idx]
             for line in res:
