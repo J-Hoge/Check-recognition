@@ -1,0 +1,39 @@
+body {
+  background-color: #f0f0f0;
+}
+
+form {
+  border: 4px solid green;
+  padding: 20px;
+  margin: 20px;
+}
+
+.file-input {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.file-input label {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  padding: 8px 20px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 0px; /* 可根据需要调整右侧边距 */
+}
