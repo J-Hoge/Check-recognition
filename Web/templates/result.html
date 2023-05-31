@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Image</title>
+    <style>
+        #image-container {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.2s ease;
+        }
+        #image-container .image-zoom {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+    <script>
+        function zoomImage() {
+            var scaleValue = document.getElementById('scale').value;
+            var imageElement = document.getElementById('image');
+            imageElement.style.transform = 'scale(' + scaleValue + ')';
+
+            // 调整滑动条和内容的显示位置
+            var containerElement = document.getElementById('image-container');
+            var containerWidth = containerElement.offsetWidth;
+            var containerHeight = containerElement.offsetHeight;
+            var imageWidth = imageElement.offsetWidth;
+            var imageHeight = imageElement.offsetHeight;
+            var imageScaledWidth = imageWidth * scaleValue;
+            var imageScaledHeight = imageHeight * scaleValue;
+
+            if (imageScaledWidth > containerWidth || imageScaledHeight > containerHeight) {
+                containerElement.style.overflow = 'auto';
+            } else {
+                containerElement.style.overflow = 'hidden';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="image-container">
+        <div class="image-zoom"></div>
+        <img id="image" src="data:image/jpg;base64,{{ image_data }}" alt="Image" />
+    </div>
+
+    <div style="text-align: center;">
+        <label for="scale">缩放比例:</label>
+        <input type="range" id="scale" min="0.1" max="6" step="0.1" value="1" oninput="zoomImage()" />
+    </div>
+
+    <div style="text-align: center;">
+        <a href="{{ prev_page }}">返回识别页面</a>
+    </div>
+
+    <div style="text-align: center;">
+        <pre>{{ result }}</pre>
+    </div>
+
+</body>
+</html>

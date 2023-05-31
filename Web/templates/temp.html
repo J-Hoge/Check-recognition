@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Particle Effect</title>
+    <style>
+         #particle-canvas {
+            background: url_for('static', filename='OIP.jpg');
+            background-size: cover;
+            style="background-image: url('{{ url_for('static', filename='background.jpg') }}')"
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particle-canvas"></canvas>
+
+    <script>
+        // 获取Canvas元素
+        var canvas = document.getElementById("particle-canvas");
+        var ctx = canvas.getContext("2d");
+
+        // 设置Canvas的宽度和高度
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // 创建粒子对象
+        function Particle(x, y, radius, speedX, speedY) {
+            this.x = x;
+            this.y = y;
+            this.radius = radius;
+            this.speedX = speedX;
+            this.speedY = speedY;
+            this.color = getRandomColor();
+
+            // 绘制粒子
+            this.draw = function() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.closePath();
+            };
+
+            // 更新粒子的位置
+            this.update = function() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // 碰撞检测
+                if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
+                    this.speedX = -this.speedX;
+                }
+                if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) {
+                    this.speedY = -this.speedY;
+                }
+
+                this.draw();
+            };
+        }
+
+        // 创建粒子数组
+        var particles = [];
+
+        // 生成粒子
+        function createParticles() {
+            for (var i = 0; i < 100; i++) {
+                var radius = Math.random() * 5 + 1;
+                var x = Math.random() * (canvas.width - radius * 2) + radius;
+                var y = Math.random() * (canvas.height - radius * 2) + radius;
+                var speedX = (Math.random() - 0.5) * 2;
+                var speedY = (Math.random() - 0.5) * 2;
+
+                particles.push(new Particle(x, y, radius, speedX, speedY));
+            }
+        }
+
+        // 获取随机颜色
+        function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // 动画循环
+        function animate() {
+            requestAnimationFrame(animate);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+            }
+        }
+
+        // 初始化
+        createParticles();
+        animate();
+    </script>
+</body>
+</html>

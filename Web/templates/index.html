@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Particle Collision Effect</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    /* 定义人物元素的样式 */
+    .sprite {
+      text-align: center;
+      width: 100%;
+      height: 165px;
+      background-image: url('{{ url_for('static', filename='OIP.jpg') }}');
+      animation: run 0.8s steps(8) infinite;
+    }
+
+    /* 定义动画 */
+    @keyframes run {
+      from {
+        background-position: 0 0;
+      }
+      to {
+        background-position: -384px 0;
+      }
+    }
+
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+  </style>
+  <script src='script.js'></script>
+
+  <script>
+    function showComponent() {
+      // 获取组件元素
+      var component = document.getElementById("donghua");
+      // 显示组件
+      component.style.display = "block";
+    }
+  </script>
+</head>
+
+
+<body style="background-image: url('static/bg0.png'); background-size: cover; background-repeat: no-repeat;">
+  <br><br><br><br><br><br>
+  <h1 style="text-align: center;">Check recognition</h1>
+  <form method="POST" enctype="multipart/form-data" style="text-align: center;">
+
+   <div class="file-input">
+      <input type="file" id="my-file" name="file" style="display: none;">
+      <label for="my-file" id="file-label">选择文件</label>
+   </div>
+
+<script>
+  const fileInput = document.getElementById('my-file');
+  const fileLabel = document.getElementById('file-label');
+
+  fileInput.addEventListener('change', function() {
+    if (fileInput.files.length > 0) {
+      fileLabel.textContent = fileInput.files[0].name;
+      // 或者可以使用以下代码来标记为已选择：
+      // fileLabel.classList.add('selected');
+    } else {
+      fileLabel.textContent = '选择文件';
+      // 或者可以使用以下代码来移除已选择标记：
+      // fileLabel.classList.remove('selected');
+    }
+  });
+</script>
+
+      <br><br>
+    <input type="submit" value="Upload" style="margin-right: 0px;" onclick="showComponent();">
+  </form>
+
+  <div id="donghua" style="display: none;">
+    <div class="sprite" style="text-align: center;"></div>
+  </div>
+
+  <canvas id="particle-canvas"></canvas>
+
+  {% if image %}
+  <h2>Rotated Image:</h2>
+  <img src="{{ image.url }}" alt="Rotated Image">
+  <a href="/">返回主页</a>
+  {% endif %}
+
+  <script>
+    // 获取Canvas元素
+    var canvas = document.getElementById("particle-canvas");
+    var ctx = canvas.getContext("2d");
+
+    // 设置Canvas的宽度和高度
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 创建粒子对象
+    function Particle(x, y, radius, color, speedX, speedY) {
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
+      this.color = getRandomColor();
+      this.speedX = speedX;
+      this.speedY = speedY;
+
+      // 绘制粒子
+      this.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.closePath();
+      };
+
+      // 更新粒子的位置
+      this.update = function () {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // 碰撞检测
+        if (this.x - this.radius <= 0 || this.x + this.radius >= canvas.width) {
+          this.speedX = -this.speedX;
+        }
+        if (this.y - this.radius <= 0 || this.y + this.radius >= canvas.height) {
+          this.speedY = -this.speedY;
+        }
+
+        this.draw();
+      };
+    }
+
+    // 创建粒子数组
+    var particles = [];
+
+    // 生成粒子
+    function createParticles() {
+      for (var i = 0; i < 200; i++) {
+        var radius = Math.random() * 5 + 1;
+        var x = Math.random() * (canvas.width - radius * 2) + radius;
+        var y = Math.random() * (canvas.height - radius * 2) + radius;
+        var speedX = (Math.random() - 0.5) * 2;
+        var speedY = (Math.random() - 0.5) * 2;
+        var color = "black";
+
+        particles.push(new Particle(x, y, radius, color, speedX, speedY));
+      }
+    }
+    function getRandomColor() {
+            var letters = "0123456789ABCDEF";
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    // 动画循环
+    function animate() {
+      requestAnimationFrame(animate);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (var i = 0; i < particles.length; i++) {
+        particles[i].update();
+      }
+    }
+
+    // 初始化
+    createParticles();
+    animate();
+  </script>
+
+</body>
+
+</html>
